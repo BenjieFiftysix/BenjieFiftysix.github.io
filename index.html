@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="leaflet.css">
+        <script src="leaflet.js"></script>
+        <title>Leaflet</title>
+        <style>
+            html {
+                height: 100vh;
+                width: 100vw;
+                overflow: hidden;
+            }
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                font-size: 12px;
+            }
+            #mapid {
+                height: 100%;
+                position: absolute;
+                left: 0;
+                right: 30em;
+            }
+            #sidebar {
+                position: relative;
+                float: right;
+                height: 100%;
+                width: 30em;
+                border-left: 1px solid black;
+                z-index: 1001;
+            }
+            #sidebar > * {
+                padding-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mapid"></div>
+        
+        <script>
+            
+            var mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiYmVuamllNTYiLCJhIjoiY2s5ZThveW9sMGFnYjNpcWxmbWR2ZXE1YiJ9.C2qGpXMdi0bCa9RTu12hLg'
+            });
+            var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/satellite-v9',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiYmVuamllNTYiLCJhIjoiY2s5ZThveW9sMGFnYjNpcWxmbWR2ZXE1YiJ9.C2qGpXMdi0bCa9RTu12hLg'
+            });
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+            
+            var icon = L.Icon.extend({
+                options: {
+                    shadowUrl: "marker-shadow.png",
+                    iconSize: [40, 40],
+                    shadowSize: [60, 60],
+                    iconAnchor: [20, 40],
+                    shadowAnchor: [20, 60],
+                    popupAnchor: [0, -35]
+                }
+            });
+            
+            var icons = {
+                "green": new icon({iconUrl: "marker-green.png"}),
+                "red": new icon({iconUrl: "marker-red.png"}),
+                "blue": new icon({iconUrl: "marker-blue.png"}),
+                "black": new icon({iconUrl: "marker-black.png"}),
+            }
+            
+            
+        </script>
+        <script src="markers.js"></script>
+        <script>
+            var layers = [osm];
+            for (var key in marker_layers) {
+                layers.push(marker_layers[key]);
+            };
+            var mymap = L.map('mapid', {
+                center: [51.505, -0.09],
+                zoom: 10,
+                layers: layers,
+            });
+            
+            
+            L.control.layers({"OpenStreetMap Streets": osm, "Mapbox Streets": mapbox, "Mapbox Satellite": satellite}, marker_layers).addTo(mymap);
+        </script>
+        
+        <div id="sidebar">
+            <h1>Sidebar</h1>
+        </div>
+    </body>
+</html>
