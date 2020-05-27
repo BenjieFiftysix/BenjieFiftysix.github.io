@@ -1,52 +1,15 @@
 <html>
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="leaflet.css">
+        <link rel="stylesheet" href="page.css">
         <script src="leaflet.js"></script>
+        <script src="doubleRightClick.js"></script>
         <title>Leaflet</title>
-        <style>
-            html {
-                height: 100vh;
-                width: 100vw;
-                overflow: hidden;
-            }
-            body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                font-size: 12px;
-            }
-            #mapid {
-                height: 100%;
-                position: absolute;
-                left: 0;
-                right: 30em;
-            }
-            #sidebar {
-                position: relative;
-                float: right;
-                height: 100%;
-                width: 30em;
-                border-left: 1px solid black;
-                z-index: 1001;
-            }
-            #sidebar > * {
-                padding-left: 10px;
-            }
-        </style>
     </head>
     <body>
         <div id="mapid"></div>
-        
         <script>
-            
-            var mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1IjoiYmVuamllNTYiLCJhIjoiY2s5ZThveW9sMGFnYjNpcWxmbWR2ZXE1YiJ9.C2qGpXMdi0bCa9RTu12hLg'
-            });
             var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 18,
@@ -61,7 +24,7 @@
             
             var icon = L.Icon.extend({
                 options: {
-                    shadowUrl: "marker-shadow.png",
+                    shadowUrl: "images/marker-shadow.png",
                     iconSize: [40, 40],
                     shadowSize: [60, 60],
                     iconAnchor: [20, 40],
@@ -71,13 +34,27 @@
             });
             
             var icons = {
-                "green": new icon({iconUrl: "marker-green.png"}),
-                "red": new icon({iconUrl: "marker-red.png"}),
-                "blue": new icon({iconUrl: "marker-blue.png"}),
-                "black": new icon({iconUrl: "marker-black.png"}),
+                "green": new icon({iconUrl: "images/marker-green.png"}),
+                "red": new icon({iconUrl: "images/marker-red.png"}),
+                "blue": new icon({iconUrl: "images/marker-blue.png"}),
+                "black": new icon({iconUrl: "images/marker-black.png"}),
+                "yellow": new icon({iconUrl: "images/marker-yellow.png"}),
+                "white": new icon({iconUrl: "images/marker-white.png"}),
+                "orange": new icon({iconUrl: "images/marker-orange.png"}),
+                "pink": new icon({iconUrl: "images/marker-pink.png"}),
+                "purple": new icon({iconUrl: "images/marker-purple.png"}),
             }
             
-            
+            function set_sidebar(title, category, address, postcode, notes, description, photos, links) {
+                document.getElementById("title").innerHTML = title
+                document.getElementById("category").innerHTML = "<b>Category:</b> "+category
+                document.getElementById("address").innerHTML = "<b>Address:</b> "+address
+                document.getElementById("postcode").innerHTML = "<b>Postcode:</b> "+postcode
+                document.getElementById("notes").innerHTML = "<b>Notes:</b> "+notes
+                document.getElementById("description").innerHTML = "<b>Description:</b> "+description
+                document.getElementById("photos").innerHTML = "<b>Photos:</b> "+photos
+                document.getElementById("links").innerHTML = "<b>Links:</b> "+links
+            }
         </script>
         <script src="markers.js"></script>
         <script>
@@ -86,17 +63,25 @@
                 layers.push(marker_layers[key]);
             };
             var mymap = L.map('mapid', {
-                center: [51.505, -0.09],
-                zoom: 10,
+                center: [56.48, -3.90],
+                zoom: 7,
                 layers: layers,
+                doubleRightClickZoom: true,
             });
             
             
-            L.control.layers({"OpenStreetMap Streets": osm, "Mapbox Streets": mapbox, "Mapbox Satellite": satellite}, marker_layers).addTo(mymap);
+            L.control.layers({"OpenStreetMap": osm, "Mapbox Satellite": satellite}, marker_layers).addTo(mymap);
         </script>
         
         <div id="sidebar">
-            <h1>Sidebar</h1>
+            <h2 id="title"></h2>
+            <p id="category"></p>
+            <p id="address"></p>
+            <p id="postcode"></p>
+            <p id="notes"></p>
+            <p id="description"></p>
+            <p id="photos"></p>
+            <p id="links"></p>
         </div>
     </body>
 </html>
