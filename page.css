@@ -22,6 +22,11 @@ body {
 }
 #sidebar > * {
     padding-left: 10px;
+    padding-right: 10px;
+}
+
+#sidebar img {
+    max-width: 100%;
 }
 
 @media (orientation:landscape) {
