@@ -3,6 +3,31 @@ html {
     width: 100vw;
     overflow: hidden;
 }
+
+/*#mobile, #mobile + label {
+    display: none;
+}*/
+
+@media (orientation: portrait) and (min-resolution: 100dpi) {
+    /*#mobile, #mobile + label {
+        display: inline;
+    }*/
+    html {
+        font-size: 25pt;
+    }
+    .leaflet-container {
+        font-size: 23pt;
+    }
+    .leaflet-container button {
+        font-size: 23pt;
+    }
+    .leaflet-marker-icon {
+        margin-left: -40px !important;
+        margin-top: -80px !important;
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
 body {
     width: 100%;
     height: 100%;
