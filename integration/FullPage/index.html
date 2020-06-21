@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="leaflet.css">
+        <link rel="stylesheet" href="page.css">
+        <script src="leaflet.js"></script>
+        <script src="doubleRightClick.js"></script>
+        <title>Leaflet</title>
+    </head>
+    <body>
+        <div id="mapid">
+            <a href="http://gcop.scot/" class="returnOverlay">Return to Website</a>
+        </div>
+        <script>
+            var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/satellite-v9',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiYmVuamllNTYiLCJhIjoiY2s5ZThveW9sMGFnYjNpcWxmbWR2ZXE1YiJ9.C2qGpXMdi0bCa9RTu12hLg'
+            });
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+            
+            var icon = L.Icon.extend({
+                options: {
+                    shadowUrl: "images/marker-shadow.png",
+                    iconSize: [40, 40],
+                    shadowSize: [60, 60],
+                    iconAnchor: [20, 40],
+                    shadowAnchor: [20, 60],
+                    popupAnchor: [0, -35]
+                }
+            });
+            
+            var icons = {
+                "green": new icon({iconUrl: "images/marker-green.png"}),
+                "red": new icon({iconUrl: "images/marker-red.png"}),
+                "blue": new icon({iconUrl: "images/marker-blue.png"}),
+                "black": new icon({iconUrl: "images/marker-black.png"}),
+                "yellow": new icon({iconUrl: "images/marker-yellow.png"}),
+                "white": new icon({iconUrl: "images/marker-white.png"}),
+                "orange": new icon({iconUrl: "images/marker-orange.png"}),
+                "pink": new icon({iconUrl: "images/marker-pink.png"}),
+                "purple": new icon({iconUrl: "images/marker-purple.png"}),
+            }
+            
+            function set_sidebar(title, category, address, postcode, notes, description, photos, links) {
+                document.getElementById("title").innerHTML = title
+                document.getElementById("category").innerHTML = "<b>Category:</b> "+category
+                document.getElementById("address").innerHTML = "<b>Address:</b> "+address
+                document.getElementById("postcode").innerHTML = "<b>Postcode:</b> "+postcode
+                document.getElementById("notes").innerHTML = "<b>Notes:</b> "+notes
+                document.getElementById("description").innerHTML = "<b>Description:</b> "+description
+                document.getElementById("photos").innerHTML = "<b>Photos:</b> "+photos
+                document.getElementById("links").innerHTML = "<b>Links:</b> "+links
+            }
+        </script>
+        <script src="https://benjiefiftysix.github.io/markers.js"></script>
+        <script>
+            var layers = [osm];
+            for (var key in marker_layers) {
+                layers.push(marker_layers[key]);
+            };
+            var mymap = L.map('mapid', {
+                center: [56.48, -3.90],
+                zoom: 7,
+                layers: layers,
+                doubleRightClickZoom: true,
+            });
+            
+            
+            L.control.layers({"OpenStreetMap": osm, "Mapbox Satellite": satellite}, marker_layers).addTo(mymap);
+        </script>
+        
+        <div id="sidebar">
+            <!--<input type="checkbox" id="mobile">
+            <label for="mobile">Mobile Mode</label>-->
+            <h2 id="title"></h2>
+            <p id="category"></p>
+            <p id="address"></p>
+            <p id="postcode"></p>
+            <p id="notes"></p>
+            <p id="description"></p>
+            <p id="photos"></p>
+            <p id="links"></p>
+        </div>
+    </body>
+</html>
