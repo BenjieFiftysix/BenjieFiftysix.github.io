@@ -11,7 +11,7 @@
         <div id="mapid"></div>
         <script>
             var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">Mapbox</a>',
                 maxZoom: 18,
                 id: 'mapbox/satellite-v9',
                 tileSize: 512,
@@ -19,7 +19,7 @@
                 accessToken: 'pk.eyJ1IjoiYmVuamllNTYiLCJhIjoiY2s5ZThveW9sMGFnYjNpcWxmbWR2ZXE1YiJ9.C2qGpXMdi0bCa9RTu12hLg'
             });
             var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
             });
             
             var icon = L.Icon.extend({
